@@ -1,0 +1,30 @@
+import canonicalLaneMathlib.AdmissibleClass
+import FunctionalCalculusLinearOperatorsCanonicalLaneLean.OperatorAlgebra
+import FunctionalCalculusLinearOperatorsCanonicalLaneLean.SpectralTheorem
+import FunctionalCalculusLinearOperatorsCanonicalLaneLean.BorelFunctionalCalculus
+import FunctionalCalculusLinearOperatorsCanonicalLaneLean.HolomorphicFunctionalCalculus
+
+namespace HautevilleHouse
+namespace FunctionalCalculusLinearOperatorsCanonicalLaneLean
+
+structure FunctionalCalculusAdmissibleObject where
+  operatorAlgebra : OperatorAlgebraPackage
+  spectralData : SpectralTheoremPackage
+  borelCalculus : BorelFunctionalCalculusPackage
+  holomorphicCalculus : HolomorphicFunctionalCalculusPackage
+  spectralTheoremClosed : SpectralTheoremClosed spectralData
+  borelCalculusClosed : BorelFunctionalCalculusClosed borelCalculus
+  holomorphicCalculusClosed : HolomorphicFunctionalCalculusClosed holomorphicCalculus
+  conclusion : OperatorAlgebraClosed operatorAlgebra
+
+def FunctionalCalculusWitnessClosed (O : FunctionalCalculusAdmissibleObject) : Prop :=
+  O.conclusion
+
+structure FunctionalCalculusAdmissibleClass where
+  object : FunctionalCalculusAdmissibleObject
+  endpointSatisfied : Prop
+  remainderRecorded : Prop
+  gateWitness : endpointSatisfied ∨ remainderRecorded
+
+end FunctionalCalculusLinearOperatorsCanonicalLaneLean
+end HautevilleHouse

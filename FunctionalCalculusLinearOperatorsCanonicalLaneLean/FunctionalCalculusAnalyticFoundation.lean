@@ -1,0 +1,28 @@
+import canonicalLaneMathlib.AdmissibleClass
+import HautevilleHouse.FunctionalCalculusLinearOperatorsCanonicalLaneLean.SpectralMeasurePackage
+import HautevilleHouse.FunctionalCalculusLinearOperatorsCanonicalLaneLean.BorelFunctionalCalculus
+import HautevilleHouse.FunctionalCalculusLinearOperatorsCanonicalLaneLean.HolomorphicFunctionalCalculus
+
+namespace HautevilleHouse
+namespace FunctionalCalculusLinearOperatorsCanonicalLaneLean
+
+structure FunctionalCalculusAnalyticFoundation (A : AdmissibleClass) where
+  spectralMeasure : SpectralMeasurePackage A
+  spectralMeasureEvidence : SpectralMeasureEvidence spectralMeasure
+  borelFunctionalCalculus : BorelFunctionalCalculusPackage A
+  borelFunctionalCalculusEvidence : BorelFunctionalCalculusEvidence borelFunctionalCalculus
+  holomorphicFunctionalCalculus : HolomorphicFunctionalCalculusPackage A
+  holomorphicFunctionalCalculusEvidence : HolomorphicFunctionalCalculusEvidence holomorphicFunctionalCalculus
+
+def FunctionalCalculusAnalyticFoundationClosed {A : AdmissibleClass} (F : FunctionalCalculusAnalyticFoundation A) : Prop :=
+  SpectralMeasureClosed F.spectralMeasure ∧
+  BorelFunctionalCalculusClosed F.borelFunctionalCalculus ∧
+  HolomorphicFunctionalCalculusClosed F.holomorphicFunctionalCalculus
+
+theorem func_calc_analytic_foundation_closed_from_evidence {A : AdmissibleClass} (F : FunctionalCalculusAnalyticFoundation A) : FunctionalCalculusAnalyticFoundationClosed F := by
+  exact And.intro (spectral_measure_closed_from_evidence F.spectralMeasure F.spectralMeasureEvidence)
+    (And.intro (borel_functional_calculus_closed_from_evidence F.borelFunctionalCalculus F.borelFunctionalCalculusEvidence)
+      (holomorphic_functional_calculus_closed_from_evidence F.holomorphicFunctionalCalculus F.holomorphicFunctionalCalculusEvidence))
+
+end FunctionalCalculusLinearOperatorsCanonicalLaneLean
+end HautevilleHouse
